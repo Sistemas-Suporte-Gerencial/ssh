@@ -26,6 +26,7 @@ const makeSsh = () => {
 app.post('/sessionId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { internalId } = req.body;
+        console.log(internalId);
         const shh = makeSsh();
         const id = yield shh.execCommand(`cd /var/bigbluebutton/learning-dashboard/${internalId} && ls`);
         res.status(200).json({ sessionId: id });

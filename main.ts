@@ -16,6 +16,7 @@ const makeSsh = (): Ssh => {
 app.post('/sessionId', async (req: Request, res: Response) => {
   try {
     const { internalId } = req.body
+    console.log(internalId);
     const shh = makeSsh()
     const id = await shh.execCommand(`cd /var/bigbluebutton/learning-dashboard/${internalId} && ls`)
     res.status(200).json({ sessionId: id })
