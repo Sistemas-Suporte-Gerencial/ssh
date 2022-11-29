@@ -1,9 +1,11 @@
+import express, { Request, Response } from 'express'
+import cors from 'cors'
 import { NodeSSH } from 'node-ssh'
 import { Ssh } from './src/usecase/node-ssh'
-import express, { Request, Response } from 'express'
 
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 const sshNode = new NodeSSH()
 
