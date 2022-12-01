@@ -5,7 +5,10 @@ import { Ssh } from './src/usecase/node-ssh'
 
 const app = express()
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+}))
 
 const sshNode = new NodeSSH()
 
@@ -16,7 +19,6 @@ const makeSsh = (): Ssh => {
 app.post('/sessionId', async (req: Request, res: Response) => {
   try {
     const { internalId } = req.body
-    console.log(internalId);
     const shh = makeSsh()
     const id = await shh.execCommand(`cd /var/bigbluebutton/learning-dashboard/${internalId} && ls`)
     res.status(200).json({ sessionId: id })

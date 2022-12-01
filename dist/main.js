@@ -18,7 +18,10 @@ const node_ssh_1 = require("node-ssh");
 const node_ssh_2 = require("./src/usecase/node-ssh");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+}));
 const sshNode = new node_ssh_1.NodeSSH();
 const makeSsh = () => {
     return new node_ssh_2.Ssh(sshNode);
@@ -26,7 +29,6 @@ const makeSsh = () => {
 app.post('/sessionId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { internalId } = req.body;
-        console.log(internalId);
         const shh = makeSsh();
         const id = yield shh.execCommand(`cd /var/bigbluebutton/learning-dashboard/${internalId} && ls`);
         res.status(200).json({ sessionId: id });
