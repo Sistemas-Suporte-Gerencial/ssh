@@ -1,14 +1,15 @@
 import express, { Request, Response } from 'express'
-import cors from 'cors'
 import { NodeSSH } from 'node-ssh'
 import { Ssh } from './src/usecase/node-ssh'
 
 const app = express()
 app.use(express.json())
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-}))
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  next();
+})
 
 const sshNode = new NodeSSH()
 
