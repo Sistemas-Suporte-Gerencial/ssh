@@ -19,6 +19,8 @@ const makeSsh = (): Ssh => {
 
 app.post('/sessionId', async (req: Request, res: Response) => {
   try {
+    res.header("Access-Control-Allow-Origin", "*");
+    console.log(req.body);
     const { internalId } = req.body
     const shh = makeSsh()
     const id = await shh.execCommand(`cd /var/bigbluebutton/learning-dashboard/${internalId} && ls`)
