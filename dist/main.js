@@ -13,16 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
 const node_ssh_1 = require("node-ssh");
 const node_ssh_2 = require("./src/usecase/node-ssh");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    next();
-});
+app.use((0, cors_1.default)({
+    origin: '*'
+}));
 const sshNode = new node_ssh_1.NodeSSH();
 const makeSsh = () => {
     return new node_ssh_2.Ssh(sshNode);

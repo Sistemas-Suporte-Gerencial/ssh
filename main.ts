@@ -1,15 +1,13 @@
 import express, { Request, Response } from 'express'
+import cors from 'cors'
 import { NodeSSH } from 'node-ssh'
 import { Ssh } from './src/usecase/node-ssh'
 
 const app = express()
 app.use(express.json())
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  next();
-})
+app.use(cors({
+  origin: '*'
+}))
 
 const sshNode = new NodeSSH()
 
@@ -19,8 +17,6 @@ const makeSsh = (): Ssh => {
 
 app.post('/sessionId', async (req: Request, res: Response) => {
   try {
-    res.header("Access-Control-Allow-Origin", "*");
-    console.log(req.body);
     const { internalId } = req.body
     const shh = makeSsh()
     const id = await shh.execCommand(`cd /var/bigbluebutton/learning-dashboard/${internalId} && ls`)
