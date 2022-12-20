@@ -13,6 +13,10 @@ const makeSsh = (): Ssh => {
   return new Ssh(sshNode)
 }
 
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello World!')
+})
+
 app.post('/sessionId', async (req: Request, res: Response) => {
   try {
     const { internalId } = req.body
