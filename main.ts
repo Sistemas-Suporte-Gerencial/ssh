@@ -24,4 +24,4 @@ app.post('/sessionId', async (req: Request, res: Response) => {
   }
 })
 
-app.listen(3000, () => console.log('Server running at http://localhost:3000'))
+app.listen(3001, () => console.log('Server running at http://localhost:3001'))
