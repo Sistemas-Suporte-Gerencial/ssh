@@ -5,9 +5,7 @@ import { Ssh } from './src/usecase/node-ssh'
 
 const app = express()
 app.use(express.json())
-app.use(cors({
-  origin: '*'
-}))
+app.use(cors())
 
 const sshNode = new NodeSSH()
 
